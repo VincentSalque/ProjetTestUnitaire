@@ -14,4 +14,6 @@ public class SoftwareMachine
 
     public ushort NombreCafésServis { get; private set; }
     public ushort SommeEncaisséeEnCentimes { get; private set; }
+
+    public ushort ArgentRembourséEnCentimes { get; private set; }
 }
