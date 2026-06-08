@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CoffeeMachine.core/CoffeeMachine.core.csproj" />
+  <Project Path="CoffeeMachine.test/CoffeeMachine.test.csproj" />
+</Solution>
