@@ -86,11 +86,11 @@ public class UnitTest1
         // ET il n'est pas demandé au hardware de collecter les fonds
         Assert.Equal(0, machineACafé.SommeEncaisséeEnCentimes);
 
-       /* //ET il est demandé au hardware de rembourser le client
-        Assert.Equal(prixCaféEnCents - 10, machineACafé.ArgentRembourséEnCentimes);*/
+        //ET il est demandé au hardware de rembourser le client
+        //Assert.Equal(prixCaféEnCents - 10, machineACafé.ArgentRembourséEnCentimes);
     }
 
-    [Fact(DisplayName = "Quand un client donne une somme suffisante, il recoit un café ET la machine le rembourse.")]
+    [Fact(DisplayName = "Quand un client donne une somme suffisante, il recoit un café ET la machine ne rembourse pas rembourse.")]
     public void CasRemboursementSommeSuperieure()
     {
         const ushort prixCaféEnCents = 40;
