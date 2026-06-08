@@ -1,4 +1,4 @@
-﻿namespace Hardware;
+﻿namespace CoffeeMachine.core;
 
 public interface IChangeMachine
 {
