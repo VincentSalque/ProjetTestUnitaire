@@ -49,23 +49,23 @@ public class UnitTest1
         Assert.Equal(0, machineACafé.NombreCafésServis);
     }
 
-
+    // Les vrais tests fait par nous...
+    
     [Fact(DisplayName = "Quand une somme insuffisante est insérée, aucun café n'est servi.")]
     public void CasSommeInsuffisante()
     {
         const ushort prixCaféEnCents = 40;
-        const ushort sommeInsuffisante = 20;
 
         // ETANT DONNE une machine a café
         var machineACafé = new SoftwareMachine();
 
         // QUAND le hardware signale une somme insuffisante pour le prix d'un café
-        machineACafé.InsérerPièce(sommeInsuffisante);
+        machineACafé.InsérerPièce((ushort)(prixCaféEnCents - 10));
 
-        // ALORS le hardware n'est pas sollicité pour faire couler de café
+        // ALORS aucun café n'est servi
         Assert.Equal(0, machineACafé.NombreCafésServis);
 
-        // ET le hardware est sollicité pour rendre la monnaie
+        // ET il n'est pas demandé au hardware de collecter les fonds
         Assert.Equal(0, machineACafé.SommeEncaisséeEnCentimes);
     }
 }
