@@ -6,7 +6,6 @@ public class SoftwareMachine
     {
         if (montantEnCents < 40)
         {
-            ArgentRembourséEnCentimes = montantEnCents;
             return;
         }
         NombreCafésServis ++;
