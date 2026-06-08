@@ -68,4 +68,25 @@ public class UnitTest1
         // ET il n'est pas demandé au hardware de collecter les fonds
         Assert.Equal(0, machineACafé.SommeEncaisséeEnCentimes);
     }
+
+    [Fact(DisplayName = "Quand un client donne une somme insuffisante la machine le rembourse, l'argent est rendu.")]
+    public void CasRemboursementSommeInsuffisante()
+    {
+        const ushort prixCaféEnCents = 40;
+
+        // ETANT DONNE une machine a café
+        var machineACafé = new SoftwareMachine();
+
+        // QUAND le hardware signale une somme insuffisante pour le prix d'un café
+        machineACafé.InsérerPièce((ushort)(prixCaféEnCents - 10));
+
+        // ALORS aucun café n'est servi
+        Assert.Equal(0, machineACafé.NombreCafésServis);
+
+        // ET il n'est pas demandé au hardware de collecter les fonds
+        Assert.Equal(0, machineACafé.SommeEncaisséeEnCentimes);
+
+        //ET il est demandé au hardware de rembourser le client
+        Assert.Equal(prixCaféEnCents - 10, machineACafé.ArgentRembourséEnCentimes);
+    }
 }
