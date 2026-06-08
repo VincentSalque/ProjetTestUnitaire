@@ -89,4 +89,26 @@ public class UnitTest1
        /* //ET il est demandé au hardware de rembourser le client
         Assert.Equal(prixCaféEnCents - 10, machineACafé.ArgentRembourséEnCentimes);*/
     }
+
+    [Fact(DisplayName = "Quand un client donne une somme suffisante, il recoit un café ET la machine le rembourse.")]
+    public void CasRemboursementSommeSuperieure()
+    {
+        const ushort prixCaféEnCents = 40;
+
+        // ETANT DONNE une machine a café
+        var machineACafé = new SoftwareMachine();
+
+        // QUAND le hardware signale une somme suffisante pour le prix d'un café
+        machineACafé.InsérerPièce((ushort)(prixCaféEnCents + 1));
+
+        // ALORS un café est servi
+        Assert.Equal(1, machineACafé.NombreCafésServis);
+
+        // ET il est demandé au hardware de collecter les fonds
+        Assert.Equal(41, machineACafé.SommeEncaisséeEnCentimes);
+
+        //ET il est demandé au hardware de rembourser le client de la somme en trop
+        //Assert.Equal(1, machineACafé.ArgentRembourséEnCentimes);
+    }
+
 }

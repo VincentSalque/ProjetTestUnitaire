@@ -9,7 +9,8 @@ public class SoftwareMachine
             return;
         }
         NombreCafésServis ++;
-        SommeEncaisséeEnCentimes += 40;
+        SommeEncaisséeEnCentimes += montantEnCents;
+        //ArgentRembourséEnCentimes += (ushort)(montantEnCents - 40);
     }
 
     public ushort NombreCafésServis { get; private set; }
