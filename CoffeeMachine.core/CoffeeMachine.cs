@@ -2,14 +2,14 @@ namespace CoffeeMachine.core;
 
 public class CoffeeMachine
 {
-    private ushort coffeePrice = 40;
+    public const ushort CoffeePrice = 40;
 
     public void InsertCoin(ushort amount){
-        if(amount >= coffeePrice)
+        if(amount >= CoffeePrice)
         {
-            CoffeeServedAmount = (ushort)(amount / coffeePrice);
-            CollectedMoneyInCents = (ushort)(CoffeeServedAmount * coffeePrice);
-            CashbackAmountInCents = (ushort)(amount - (CoffeeServedAmount * coffeePrice));
+            CoffeeServedAmount = (ushort)(amount / CoffeePrice);
+            CollectedMoneyInCents = (ushort)(CoffeeServedAmount * CoffeePrice);
+            CashbackAmountInCents = (ushort)(amount - (CoffeeServedAmount * CoffeePrice));
         }
         else
         {
