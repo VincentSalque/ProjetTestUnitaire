@@ -12,7 +12,18 @@ public class SoftwareMachine
 
     public void Insérer(ushort montantEnCentimes)
     {
+        if (montantEnCentimes < prixCaféEnCents)
+        {
+            // Remboursement
+            return;
+        }
+        SommeInséréeEnCentimes += montantEnCentimes;
+        NombreCafésServis++;
     }
+    public const ushort prixCaféEnCents = 40;
 
-    public ushort NombreCafésServis => 1;
+    public ushort NombreCafésServis { get; private set; }
+
+
+    public ushort SommeInséréeEnCentimes { get; private set; }
 }

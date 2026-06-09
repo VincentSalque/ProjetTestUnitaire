@@ -9,6 +9,9 @@ internal class ChangeMachineSpy : IChangeMachine
     public ushort FlushStoredMoneyInvocations { get; private set; }
     public ushort CollectStoredMoneyInvocations { get; private set; }
 
+    public ChangeMachineSpy() : this(new ChangeMachineStub())
+    {
+    }   
     public ChangeMachineSpy(IChangeMachine behavior)
     {
         _behavior = behavior;
