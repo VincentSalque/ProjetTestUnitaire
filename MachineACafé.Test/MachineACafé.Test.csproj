@@ -17,7 +17,17 @@
   <ItemGroup>
     <ProjectReference Include="..\MachineACafé\MachineACafé.csproj" />
   </ItemGroup>
+  
+   <ItemGroup>
+    <ProjectReference Include="..\Hardware\Hardware.csproj" />
+    <ProjectReference Include="..\MachineBuilder\MachineBuilder.csproj" />
+   </ItemGroup>
 
+   <ItemGroup>
+    <Using Include="MachineACafé" />
+    <Using Include="Hardware" />
+    <Using Include="MachineBuilder" />
+  </ItemGroup>
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>

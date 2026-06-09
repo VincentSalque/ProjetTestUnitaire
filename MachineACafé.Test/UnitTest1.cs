@@ -1,3 +1,5 @@
+using MachineBuilder;
+ 
 namespace MachineACafé.Test;
 
 public class UnitTest1
