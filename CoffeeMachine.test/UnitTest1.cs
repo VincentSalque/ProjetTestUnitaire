@@ -18,7 +18,7 @@ public class UnitTest1
 
 
         //AND CollectStoredMoney() is called on the hardware
-        Assert.Equal(40, coffeeMachine.CollectedAmountInCents);
+        Assert.Equal(40, coffeeMachine.CollectedMoneyInCents);
     }
 
     [Fact(DisplayName = "Insère plus d'argent que nécessaire pour faire un café")]
@@ -37,7 +37,7 @@ public class UnitTest1
         Assert.Equal(1, coffeeMachine.CashbackAmountInCents);
 
         //AND CollectStoredMoney() is called on the hardware
-        Assert.Equal(40, coffeeMachine.CollectedAmountInCents);
+        Assert.Equal(40, coffeeMachine.CollectedMoneyInCents);
     }
 
     [Fact(DisplayName = "Insère moins d'argent que nécessaire pour faire un café")]
@@ -54,5 +54,21 @@ public class UnitTest1
 
         //AND FlushStoredMoney() is called on the hardware
         Assert.Equal(39, coffeeMachine.FlushedMoneyInCents);
+    }
+
+    [Fact(DisplayName = "Insère l'argent nécessaire pour faire deux cafés")]
+    public void MakeTwoCoffeesWithEnoughMoney()
+    {
+        //GIVEN a coffee machine
+        var coffeeMachine = new core.CoffeeMachine();
+
+        //WHEN notice is given that coins were inserted
+        coffeeMachine.InsertCoin(80);
+
+        //THEN MakeACoffee() is called twice on the hardware
+        Assert.Equal(2, coffeeMachine.CoffeeServedAmount);
+
+        //AND CollectStoreMoney() is called on the hardware
+        Assert.Equal(80, coffeeMachine.CollectedMoneyInCents);
     }
 }
