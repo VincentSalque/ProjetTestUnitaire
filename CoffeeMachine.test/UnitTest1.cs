@@ -13,11 +13,11 @@ public class UnitTest1
         //WHEN notice is given that coins were inserted
         coffeeMachine.InsertCoin(40);
 
-        //THEN verify that coffee order is issued
+        //THEN MakeACoffee() is called on the hardware
         Assert.Equal(1, coffeeMachine.CoffeeServedAmount);
 
 
-        //AND that money collection order is issued
+        //AND CollectStoredMoney() is called on the hardware
         Assert.Equal(40, coffeeMachine.CollectedAmountInCents);
     }
 }
