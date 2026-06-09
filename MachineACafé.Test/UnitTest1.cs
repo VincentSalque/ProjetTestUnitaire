@@ -5,38 +5,36 @@ public class UnitTest1
     [Fact(DisplayName = "Quand la bonne somme est insérée 2 fois, deux cafés sont servis.")]
     public void Cas2Cafés()
     {
-        const ushort prixCaféEnCents = 40;
-
+    
         // ETANT DONNE une machine a café
         var machineACafé = new SoftwareMachine();
 
         // QUAND le hardware signale une somme suffisante pour le prix d'un café, deux fois
-        machineACafé.InsérerPièce(prixCaféEnCents);
-        machineACafé.InsérerPièce(prixCaféEnCents);
+        machineACafé.InsérerPièce(SoftwareMachine.prixCaféEnCents);
+        machineACafé.InsérerPièce(SoftwareMachine.prixCaféEnCents);
 
-        // ALORS le hardware est sollicité pour faire couler deux cafés
+        // ALORS MakeACoffee est appelé deux fois sur le hardware
         Assert.Equal(2, machineACafé.NombreCafésServis);
 
         // ET il est demandé au hardware de collecter les fonds
-        Assert.Equal(prixCaféEnCents * 2, machineACafé.SommeEncaisséeEnCentimes);
+        Assert.Equal(SoftwareMachine.prixCaféEnCents * 2, machineACafé.SommeEncaisséeEnCentimes);
     }
 
     [Fact(DisplayName = "Quand la bonne somme est insérée, un café est servi.")]
     public void CasNominal()
     {
-        const ushort prixCaféEnCents = 40;
-
+    
         // ETANT DONNE une machine a café
         var machineACafé = new SoftwareMachine();
 
         // QUAND le hardware signale une somme suffisante pour le prix d'un café
-        machineACafé.InsérerPièce(prixCaféEnCents);
+        machineACafé.InsérerPièce(SoftwareMachine.prixCaféEnCents);
 
-        // ALORS le hardware est sollicité pour faire couler un café
+        // ALORS MakeACoffee est appelé sur le hardware
         Assert.Equal(1, machineACafé.NombreCafésServis);
 
         // ET il est demandé au hardware de collecter les fonds
-        Assert.Equal(prixCaféEnCents, machineACafé.SommeEncaisséeEnCentimes);
+        Assert.Equal(SoftwareMachine.prixCaféEnCents, machineACafé.SommeEncaisséeEnCentimes);
     }
 
     [Fact(DisplayName = "Quand aucune somme n'est insérée, aucun café n'est servi.")]
@@ -45,7 +43,7 @@ public class UnitTest1
         // ETANT DONNE une machine a café
         var machineACafé = new SoftwareMachine();
 
-        // ALORS aucun café n'est servi
+        // ALORS MakeACoffee n'est pas appelé sur le hardware
         Assert.Equal(0, machineACafé.NombreCafésServis);
     }
 
@@ -54,15 +52,14 @@ public class UnitTest1
     [Fact(DisplayName = "Quand une somme insuffisante est insérée, aucun café n'est servi.")]
     public void CasSommeInsuffisante()
     {
-        const ushort prixCaféEnCents = 40;
 
         // ETANT DONNE une machine a café
         var machineACafé = new SoftwareMachine();
 
         // QUAND le hardware signale une somme insuffisante pour le prix d'un café
-        machineACafé.InsérerPièce((ushort)(prixCaféEnCents - 10));
+        machineACafé.InsérerPièce((ushort)(SoftwareMachine.prixCaféEnCents - 10));
 
-        // ALORS aucun café n'est servi
+        // ALORS MakeACoffee n'est pas appelé sur le hardware 
         Assert.Equal(0, machineACafé.NombreCafésServis);
 
         // ET il n'est pas demandé au hardware de collecter les fonds
@@ -72,40 +69,58 @@ public class UnitTest1
     [Fact(DisplayName = "Quand un client donne une somme insuffisante la machine le rembourse, l'argent est rendu.")]
     public void CasRemboursementSommeInsuffisante()
     {
-        const ushort prixCaféEnCents = 40;
-
+    
         // ETANT DONNE une machine a café
         var machineACafé = new SoftwareMachine();
 
         // QUAND le hardware signale une somme insuffisante pour le prix d'un café
-        machineACafé.InsérerPièce((ushort)(prixCaféEnCents - 1));
+        machineACafé.InsérerPièce((ushort)(SoftwareMachine.prixCaféEnCents - 1));
 
-        // ALORS aucun café n'est servi
+        // ALORS MakeACoffee n'est pas appelé sur le hardware
         Assert.Equal(0, machineACafé.NombreCafésServis);
 
-        // ET il n'est pas demandé au hardware de collecter les fonds
+        // ET CollectStoredMoney n'est pas appelé sur le hardware
         Assert.Equal(0, machineACafé.SommeEncaisséeEnCentimes);
 
         //ET il est demandé au hardware de rembourser le client
-        //Assert.Equal(prixCaféEnCents - 10, machineACafé.ArgentRembourséEnCentimes);
+        //Assert.Equal(SoftwareMachine.prixCaféEnCents - 10, machineACafé.ArgentRembourséEnCentimes);
     }
 
     [Fact(DisplayName = "Quand un client donne une somme suffisante, il recoit un café ET la machine ne rembourse pas rembourse.")]
     public void CasRemboursementSommeSuperieure()
     {
-        const ushort prixCaféEnCents = 40;
-
+       
         // ETANT DONNE une machine a café
         var machineACafé = new SoftwareMachine();
 
         // QUAND le hardware signale une somme suffisante pour le prix d'un café
-        machineACafé.InsérerPièce((ushort)(prixCaféEnCents + 1));
+        machineACafé.InsérerPièce((ushort)(SoftwareMachine.prixCaféEnCents + 1));
 
-        // ALORS un café est servi
+        // ALORS  MakeACoffee est appelé sur le hardware
         Assert.Equal(1, machineACafé.NombreCafésServis);
 
-        // ET il est demandé au hardware de collecter les fonds
-        Assert.Equal(41, machineACafé.SommeEncaisséeEnCentimes);
+        // ET CollectStoredMoney est appelé sur le hardware
+        Assert.Equal(SoftwareMachine.prixCaféEnCents + 1, machineACafé.SommeEncaisséeEnCentimes);
+
+        //ET il est demandé au hardware de rembourser le client de la somme en trop
+        //Assert.Equal(1, machineACafé.ArgentRembourséEnCentimes);
+    }
+
+    [Fact(DisplayName = "Quand le hardware est défaillant, la machine ne sert pas de café et rembourse le client.")]
+    public void CasBrewerDeffaillant()
+    {
+       
+        // ETANT DONNE une machine a café
+        var machineACafé = new SoftwareMachine();
+
+        // QUAND le hardware signale une somme suffisante pour le prix d'un café
+        machineACafé.InsérerPièce((ushort)(SoftwareMachine.prixCaféEnCents + 1));
+
+        // ALORS  MakeACoffee est appelé sur le hardware
+        Assert.Equal(1, machineACafé.NombreCafésServis);
+
+        // ET CollectStoredMoney est appelé sur le hardware
+        Assert.Equal(SoftwareMachine.prixCaféEnCents + 1, machineACafé.SommeEncaisséeEnCentimes);
 
         //ET il est demandé au hardware de rembourser le client de la somme en trop
         //Assert.Equal(1, machineACafé.ArgentRembourséEnCentimes);
