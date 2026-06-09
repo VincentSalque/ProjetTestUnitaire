@@ -1,3 +1,4 @@
+using Hardware;
 namespace MachineACafé;
 
 public class SoftwareMachine

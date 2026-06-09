@@ -1,7 +1,8 @@
 
+using Hardware;
 namespace MachineBuilder;
 
-public interface IBrewerDummy : IBrewer
+internal class IBrewerDummy : IBrewer
 {
     public bool MakeACoffee()
     { 
