@@ -1,21 +1,18 @@
 using Hardware;
+
 namespace MachineACafé;
 
 public class SoftwareMachine
 {
-    public void InsérerPièce(ushort montantEnCents)
+    public SoftwareMachine(IBrewer brewer, IChangeMachine changeMachine)
     {
-        if (montantEnCents < prixCaféEnCents)
-        {
-            return;
-        }
-        NombreCafésServis ++;
-        SommeEncaisséeEnCentimes += montantEnCents;
-        //ArgentRembourséEnCentimes += (ushort)(montantEnCents - prixCaféEnCents);
+        changeMachine.FlushStoredMoney();
+        changeMachine.CollectStoredMoney();
     }
-    public const ushort prixCaféEnCents = 40;
-    public ushort NombreCafésServis { get; private set; }
-    public ushort SommeEncaisséeEnCentimes { get; private set; }
 
-    public ushort ArgentRembourséEnCentimes { get; private set; }
+    public void Insérer(ushort montantEnCentimes)
+    {
+    }
+
+    public ushort NombreCafésServis => 1;
 }
