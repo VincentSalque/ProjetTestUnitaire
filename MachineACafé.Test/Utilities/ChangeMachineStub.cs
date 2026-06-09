@@ -1,6 +1,5 @@
 using Hardware;
-
-namespace MachineBuilder;
+namespace Utilities;
 
 internal class ChangeMachineStub : IChangeMachine
 {

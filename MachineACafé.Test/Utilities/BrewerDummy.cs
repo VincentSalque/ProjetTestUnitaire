@@ -1,6 +1,6 @@
 
 using Hardware;
-namespace MachineBuilder;
+namespace Utilities;
 
 internal class IBrewerDummy : IBrewer
 {

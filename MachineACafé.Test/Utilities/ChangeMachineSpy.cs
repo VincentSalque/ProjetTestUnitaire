@@ -1,5 +1,5 @@
 using Hardware;
-namespace MachineBuilder;
+namespace Utilities;
 
 internal class MachineACaféSpy : IChangeMachine 
 {

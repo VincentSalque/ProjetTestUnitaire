@@ -1,9 +1,9 @@
-using MachineBuilder;
+using Utilities;
 using Hardware;
  
 namespace MachineACafé.Test;
 
-public class UnitTest1
+public class SoftwareMachineTest
 {
     [Fact(DisplayName = "Quand la bonne somme est insérée 2 fois, deux cafés sont servis.")]
     public void Cas2Cafés()
