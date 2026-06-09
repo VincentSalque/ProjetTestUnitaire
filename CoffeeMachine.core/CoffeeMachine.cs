@@ -2,10 +2,12 @@ namespace CoffeeMachine.core;
 
 public class CoffeeMachine
 {
+    private ushort coffeePrice = 40;
+
     public void InsertCoin(ushort amount){
         CoffeeServedAmount = 1;
-        CollectedAmountInCents = amount;
-        CashbackAmountInCents = 1;
+        CollectedAmountInCents = coffeePrice;
+        CashbackAmountInCents = (ushort)(amount - coffeePrice);
     }
 
     public ushort CoffeeServedAmount {get; private set;}
