@@ -1,4 +1,5 @@
 using MachineBuilder;
+using Hardware;
  
 namespace MachineACafé.Test;
 
