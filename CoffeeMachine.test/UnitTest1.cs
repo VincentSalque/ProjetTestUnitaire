@@ -15,5 +15,9 @@ public class UnitTest1
 
         //THEN verify that coffee order is issued
         Assert.Equal(1, coffeeMachine.CoffeeServedAmount);
+
+
+        //AND that money collection order is issued
+        Assert.Equal(40, coffeeMachine.CollectedAmountInCents);
     }
 }
