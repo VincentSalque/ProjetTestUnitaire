@@ -1,5 +1,6 @@
 using Hardware;
-namespace Utilities;
+
+namespace MachineACafé.Test.Utilities;
 
 internal class ChangeMachineStub : IChangeMachine
 {

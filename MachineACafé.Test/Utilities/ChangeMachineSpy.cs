@@ -1,39 +1,38 @@
 using Hardware;
-namespace Utilities;
 
-internal class MachineACaféSpy : IChangeMachine 
+namespace MachineACafé.Test.Utilities;
+
+internal class ChangeMachineSpy : IChangeMachine
 {
+    private readonly IChangeMachine _behavior;
 
-    public ushort flushStoredMoneyCalled { get; private set; }
-    public ushort collectStoredMoneyCalled { get; private set; }
-    private IChangeMachine _spy;
+    public ushort FlushStoredMoneyInvocations { get; private set; }
+    public ushort CollectStoredMoneyInvocations { get; private set; }
 
-
-    //Constructeur qui prend en paramètre une instance de IChangeMachine à laquelle il délègue les appels
-    public MachineACaféSpy(IChangeMachine spy)
+    public ChangeMachineSpy(IChangeMachine behavior)
     {
-        _spy = spy;
+        _behavior = behavior;
     }
 
     public void RegisterMoneyInsertedCallback(Action<CoinCode> callback)
     {
-        _spy.RegisterMoneyInsertedCallback(callback);
+        _behavior.RegisterMoneyInsertedCallback(callback);
     }
 
     public void FlushStoredMoney()
     {
-        flushStoredMoneyCalled++;
-        _spy.FlushStoredMoney();
+        FlushStoredMoneyInvocations++;
+        _behavior.FlushStoredMoney();
     }
-    
+
     public void CollectStoredMoney()
     {
-        collectStoredMoneyCalled++;
-        _spy.CollectStoredMoney();
+        CollectStoredMoneyInvocations++;
+        _behavior.CollectStoredMoney();
     }
 
     public bool DropCashback(CoinCode coinCode)
     {
-        return _spy.DropCashback(coinCode);
+        return _behavior.DropCashback(coinCode);
     }
 }

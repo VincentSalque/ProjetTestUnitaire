@@ -1,53 +1,66 @@
-using Utilities;
 using Hardware;
- 
+using MachineACafé.Test.Utilities;
+
 namespace MachineACafé.Test;
 
 public class SoftwareMachineTest
 {
-    [Fact(DisplayName = "Quand la bonne somme est insérée 2 fois, deux cafés sont servis.")]
-    public void Cas2Cafés()
-    {
-    
-        // ETANT DONNE une machine a café
-        var machineACafé = new SoftwareMachine();
-
-        // QUAND le hardware signale une somme suffisante pour le prix d'un café, deux fois
-        machineACafé.InsérerPièce(SoftwareMachine.prixCaféEnCents);
-        machineACafé.InsérerPièce(SoftwareMachine.prixCaféEnCents);
-
-        // ALORS MakeACoffee est appelé deux fois sur le hardware
-        Assert.Equal(2, machineACafé.NombreCafésServis);
-
-        // ET il est demandé au hardware de collecter les fonds
-        Assert.Equal(SoftwareMachine.prixCaféEnCents * 2, machineACafé.SommeEncaisséeEnCentimes);
-    }
-
-    [Fact(DisplayName = "Quand la bonne somme est insérée, un café est servi.")]
+    [Fact]
     public void CasNominal()
     {
-    
-        // ETANT DONNE une machine a café
-        var machineACafé = new SoftwareMachine();
+        const ushort prixDuCafé = 40;
 
-        // QUAND le hardware signale une somme suffisante pour le prix d'un café
-        machineACafé.InsérerPièce(SoftwareMachine.prixCaféEnCents);
+        // ETANT DONNE une machine à café
+        var changeMachine = new ChangeMachineSpy(new ChangeMachineStub());
+        var machine = new SoftwareMachineBuilder().AyantUneChangeMachine(changeMachine).Build();
 
-        // ALORS MakeACoffee est appelé sur le hardware
-        Assert.Equal(1, machineACafé.NombreCafésServis);
+        // QUAND on insère 40cts
+        machine.Insérer(prixDuCafé);
 
-        // ET il est demandé au hardware de collecter les fonds
-        Assert.Equal(SoftwareMachine.prixCaféEnCents, machineACafé.SommeEncaisséeEnCentimes);
+        // ALORS MakeACoffee est appelé une fois sur le hardware
+        Assert.Equal(1, machine.NombreCafésServis);
+
+        // ET CollectStoredMoney est appelé une fois sur le hardware
+        Assert.Equal(1, changeMachine.CollectStoredMoneyInvocations);
     }
 
-    [Fact(DisplayName = "Quand aucune somme n'est insérée, aucun café n'est servi.")]
-    public void CasRien()
+    [Fact]
+    public void CasBrewerDéfaillant()
     {
-        // ETANT DONNE une machine a café
-        var machineACafé = new SoftwareMachine();
+        const ushort prixDuCafé = 40;
 
-        // ALORS MakeACoffee n'est pas appelé sur le hardware
-        Assert.Equal(0, machineACafé.NombreCafésServis);
+        // ETANT DONNE une machine à café ayant un brewer défaillant
+        var changeMachine = new ChangeMachineSpy(new ChangeMachineStub());
+
+        var machine = new SoftwareMachineBuilder()
+            .AyantUnBrewer(new BrewerDummy())
+            .AyantUneChangeMachine(changeMachine)
+            .Build();
+
+        // QUAND on insère 40cts
+        machine.Insérer(prixDuCafé);
+
+        // ALORS FlushStoredMoney est appelé une fois sur le hardware
+        Assert.Equal(1, changeMachine.FlushStoredMoneyInvocations);
+    }
+
+    [Fact]
+    public void TropArgent()
+    {
+        const ushort prixDuCafé = 40;
+
+        // ETANT DONNE une machine à café
+        var changeMachine = new ChangeMachineSpy(new ChangeMachineStub());
+        var machine = new SoftwareMachineBuilder().AyantUneChangeMachine(changeMachine).Build();
+
+        // QUAND on insère plus que le prix d'un café
+        machine.Insérer(prixDuCafé + 1);
+
+        // ALORS MakeACoffee est appelé une fois sur le hardware
+        Assert.Equal(1, machine.NombreCafésServis);
+
+        // ET CollectStoredMoney est appelé une fois sur le hardware
+        Assert.Equal(1, changeMachine.CollectStoredMoneyInvocations);
     }
 
     // Les vrais tests fait par nous...
@@ -127,6 +140,5 @@ public class SoftwareMachineTest
 
         //ET il est demandé au hardware de rembourser le client de la somme en trop
         //Assert.Equal(1, machineACafé.ArgentRembourséEnCentimes);
-    }
-
+    }   
 }

@@ -1,6 +1,6 @@
 using Hardware;
 
-namespace MachineBuilder;
+namespace MachineACafé.Test.Utilities;
 
 internal class SoftwareMachineBuilder
 {
