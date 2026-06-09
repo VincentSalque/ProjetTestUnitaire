@@ -4,21 +4,30 @@ public class CoffeeMachine
 {
     public const ushort CoffeePrice = 40;
 
+    private IBrewer brewer;
+    private IChangeMachine changeMachine;
+
+    public CoffeeMachine(IBrewer brewer, IChangeMachine changeMachine)
+    {
+        this.brewer = brewer;
+        this.changeMachine = changeMachine;
+    }
+
     public void InsertCoin(ushort amount){
         if(amount >= CoffeePrice)
         {
-            CoffeeServedAmount = (ushort)(amount / CoffeePrice);
-            CollectedMoneyInCents = (ushort)(CoffeeServedAmount * CoffeePrice);
-            CashbackAmountInCents = (ushort)(amount - (CoffeeServedAmount * CoffeePrice));
-        }
-        else
+            try
+            {
+                brewer.MakeACoffee();
+                changeMachine.CollectStoredMoney();
+            }
+            catch
+            {
+                changeMachine.FlushStoredMoney();
+            }
+        } else
         {
-            FlushedMoneyInCents = amount;
+            changeMachine.FlushStoredMoney();
         }
     }
-
-    public ushort CoffeeServedAmount {get; private set;}
-    public ushort CollectedMoneyInCents { get; private set; }
-    public ushort CashbackAmountInCents { get; private set; }
-    public ushort FlushedMoneyInCents { get; private set; }
 }
