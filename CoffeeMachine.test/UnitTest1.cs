@@ -39,4 +39,20 @@ public class UnitTest1
         //AND CollectStoredMoney() is called on the hardware
         Assert.Equal(40, coffeeMachine.CollectedAmountInCents);
     }
+
+    [Fact(DisplayName = "Insère moins d'argent que nécessaire pour faire un café")]
+    public void MakeACoffeeWithoutEnoughMoney()
+    {
+        //GIVEN a coffee machine
+        var coffeeMachine = new core.CoffeeMachine();
+
+        //WHEN notice is given that coins were inserted
+        coffeeMachine.InsertCoin(39);
+
+        //THEN MakeACoffee() is NOT called on the hardware
+        Assert.Equal(0, coffeeMachine.CoffeeServedAmount);
+
+        //AND FlushStoredMoney() is called on the hardware
+        Assert.Equal(39, coffeeMachine.FlushedMoneyInCents);
+    }
 }
