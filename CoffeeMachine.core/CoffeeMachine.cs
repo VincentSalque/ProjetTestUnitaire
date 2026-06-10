@@ -11,10 +11,11 @@ public class CoffeeMachine
     {
         this.brewer = brewer;
         this.changeMachine = changeMachine;
+        this.changeMachine.RegisterMoneyInsertedCallback(coin => InsertCoin(new Coin((ushort) coin)));
     }
 
-    public void InsertCoin(ushort amount){
-        if(amount >= CoffeePrice)
+    public void InsertCoin(Coin coin){
+        if(coin.Value >= CoffeePrice)
         {
             try
             {
