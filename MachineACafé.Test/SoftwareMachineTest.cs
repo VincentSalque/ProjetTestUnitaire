@@ -108,6 +108,7 @@ public class SoftwareMachineTest
         var changeMachine = new ChangeMachineFake();
         var changeMachineSpy = new ChangeMachineSpy(changeMachine);
         var brewer = new BrewerSpy(new BrewerStub());
+
         var cupProvider = new CupProviderFake(false);
         _ = new SoftwareMachineBuilder()
             .AyantUneChangeMachine(changeMachineSpy)
@@ -118,10 +119,10 @@ public class SoftwareMachineTest
         //QUAND argent suffisant
         changeMachine.SimulerInsertionPièce(CoinCode.FiftyCents); 
         //ET aucune tasse detectée
-        cupProvider.CupPresent = false;
+        _ = cupProvider.IsCupPresent();
 
         //ALORS (servir un gobelet)
-        cupProvider.ProvideCup();
+        Assert.True(cupProvider.IsCupPresent());
         //ET (couler un café)
         Assert.Equal(1, brewer.MakeACoffeeInvocations);
     }
