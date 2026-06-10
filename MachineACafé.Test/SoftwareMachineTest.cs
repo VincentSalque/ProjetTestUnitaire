@@ -1,4 +1,5 @@
-﻿using Hardware;
+﻿using System.Runtime.CompilerServices;
+using Hardware;
 using MachineACafé.Test.Utilities;
 
 namespace MachineACafé.Test;
@@ -97,4 +98,72 @@ public class SoftwareMachineTest
         // ET FlushStoredMoney est appelé une fois
         Assert.Equal(1, changeMachineSpy.FlushStoredMoneyInvocations);
     }
+
+//===================================== TRAVAIL ELEVES =====================================
+  
+    [Fact (DisplayName = "Quand on paye mais sans tasse")]
+    public void PayeSansTasse()
+    {
+        //ETANT DONNE une machine a café
+        var changeMachine = new ChangeMachineFake();
+        var changeMachineSpy = new ChangeMachineSpy(changeMachine);
+        var brewer = new BrewerSpy(new BrewerStub());
+        var cupProvider = new CupProviderFake(false);
+        _ = new SoftwareMachineBuilder()
+            .AyantUneChangeMachine(changeMachineSpy)
+            .AyantUnBrewer(brewer)
+            .AyantUnCupProvider(cupProvider)
+            .Build();
+
+        //QUAND argent suffisant
+        changeMachine.SimulerInsertionPièce(CoinCode.FiftyCents); 
+        //ET aucune tasse detectée
+        cupProvider.CupPresent = false;
+
+        //ALORS (servir un gobelet)
+        cupProvider.ProvideCup();
+        //ET (couler un café)
+        Assert.Equal(1, brewer.MakeACoffeeInvocations);
+    }
+/*
+    [Fact (DisplayName = "Quand on paye avec une tasse")]
+    public void PayeAvecTasse()
+    {
+        //ETANT DONNE une machine a café
+
+        //QUAND une tasse est detectée
+        //ET argent suffisant
+
+        //ALORS servir un café
+    }
+
+
+    [Fact (DisplayName = "Quand on paye sans tasse MAIS qu'il n'y en a plus")]
+    public void PayeSansTassePlusDeGobelet()
+    {  
+        //ETANT DONNE une machine a café 
+
+        //QUAND aucune tasse detectée
+        //ET aucun gobelet restant dans machine a café
+
+        //ALORS
+    }
+
+    [Fact (DisplayName = "Quand on met pas assez d'argent et que on a pas de gobelet")]
+    public void PasAssezArgentPasDeGobelet()
+    {   
+        //ETANT DONNE une machine a café
+
+        //QUAND argent insufisant 
+        //ET pas de tasse detectée
+
+        //ALORS (donner un gobelet)
+        //ET (Rendre la monnaie)
+    }
+
+
+
+// ORDRE : Appuyez bouton -> InsererPiece -> Voir gobelet -> Servir café 
+//                                        -> Rendre monnaie
+//*/
 }
