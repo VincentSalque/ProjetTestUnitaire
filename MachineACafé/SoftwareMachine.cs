@@ -1,29 +1,35 @@
-using Hardware;
+﻿using Hardware;
 
 namespace MachineACafé;
 
 public class SoftwareMachine
 {
+    private readonly IBrewer _brewer;
+    private readonly IChangeMachine _changeMachine;
+
     public SoftwareMachine(IBrewer brewer, IChangeMachine changeMachine)
     {
-        changeMachine.FlushStoredMoney();
-        changeMachine.CollectStoredMoney();
+        _brewer = brewer;
+        _changeMachine = changeMachine;
+        _changeMachine.RegisterMoneyInsertedCallback(coin => Insérer(new Coin((ushort) coin)));
     }
 
-    public void Insérer(ushort montantEnCentimes)
+    private void Insérer(Coin somme)
     {
-        if (montantEnCentimes < prixCaféEnCents)
+        if (somme.ValueInCents < 40)
         {
-            // Remboursement
+            _changeMachine.FlushStoredMoney();
             return;
         }
-        SommeInséréeEnCentimes += montantEnCentimes;
-        NombreCafésServis++;
+
+        try
+        {
+            _brewer.MakeACoffee();
+            _changeMachine.CollectStoredMoney();
+        }
+        catch
+        {
+            _changeMachine.FlushStoredMoney();
+        }
     }
-    public const ushort prixCaféEnCents = 40;
-
-    public ushort NombreCafésServis { get; private set; }
-
-
-    public ushort SommeInséréeEnCentimes { get; private set; }
 }

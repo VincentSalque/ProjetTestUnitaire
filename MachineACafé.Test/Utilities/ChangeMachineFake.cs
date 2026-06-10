@@ -1,13 +1,14 @@
-using Hardware;
+﻿using Hardware;
 
 namespace MachineACafé.Test.Utilities;
 
-internal class ChangeMachineFake : IChangeMachine
+public class ChangeMachineFake : IChangeMachine
 {
-    private Action<CoinCode>? _callback = null;
+    private Action<CoinCode>? _callback;
+
     public void RegisterMoneyInsertedCallback(Action<CoinCode> callback)
     {
-        if (_callback != null) throw new NotSupportedException("A callback has already been registered.");
+        if (_callback != null) throw new NotSupportedException();
         _callback = callback;
     }
 
@@ -21,12 +22,11 @@ internal class ChangeMachineFake : IChangeMachine
 
     public bool DropCashback(CoinCode coinCode)
     {
-        return false;
+        throw new NotImplementedException();
     }
 
     public void SimulerInsertionPièce(CoinCode fiftyCents)
     {
-        if (_callback is null) throw new InvalidOperationException("No callback has been registered to handle money insertion.");
-        _callback(fiftyCents);
+        _callback?.Invoke(fiftyCents);
     }
 }
