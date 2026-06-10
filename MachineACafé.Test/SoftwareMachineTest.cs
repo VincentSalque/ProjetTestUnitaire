@@ -126,18 +126,52 @@ public class SoftwareMachineTest
         //ET (couler un café)
         Assert.Equal(1, brewer.MakeACoffeeInvocations);
     }
-/*
+
     [Fact (DisplayName = "Quand on paye avec une tasse")]
     public void PayeAvecTasse()
     {
         //ETANT DONNE une machine a café
+        var changeMachine = new ChangeMachineFake();
+        var changeMachineSpy = new ChangeMachineSpy(changeMachine);
+        var brewer = new BrewerSpy(new BrewerStub());
+
+        var cupProvider = new CupProviderFake(true);
+        _ = new SoftwareMachineBuilder()
+            .AyantUneChangeMachine(changeMachineSpy)
+            .AyantUnBrewer(brewer)
+            .AyantUnCupProvider(cupProvider)
+            .Build();
 
         //QUAND une tasse est detectée
-        //ET argent suffisant
+        _ = cupProvider.IsCupPresent();
 
         //ALORS servir un café
+        Assert.Equal(1, brewer.MakeACoffeeInvocations);
     }
 
+    [Fact (DisplayName = "Quand a une tasse et qu'on ne veut pas un gobelet")]
+    public void TassePasDeGobelet()
+    {
+        //ETANT DONNE une machine a café
+        var changeMachine = new ChangeMachineFake();
+        var changeMachineSpy = new ChangeMachineSpy(changeMachine);
+        var brewer = new BrewerSpy(new BrewerStub());
+
+        var cupProviderSpy = new CupProviderSpy(true);
+        _ = new SoftwareMachineBuilder()
+            .AyantUneChangeMachine(changeMachineSpy)
+            .AyantUnBrewer(brewer)
+            .AyantUnCupProvider(cupProviderSpy)
+            .Build();
+
+        //QUAND une tasse est detectée
+        _ = cupProviderSpy.IsCupPresent();
+
+        //ALORS ne pas servir un gobelet
+        Assert.Equal(0, cupProviderSpy.ProvideCupCall);
+        Assert.Equal(1, cupProviderSpy.IsCupPresentCall);
+    }
+/*
 
     [Fact (DisplayName = "Quand on paye sans tasse MAIS qu'il n'y en a plus")]
     public void PayeSansTassePlusDeGobelet()
@@ -161,6 +195,8 @@ public class SoftwareMachineTest
         //ALORS (donner un gobelet)
         //ET (Rendre la monnaie)
     }
+
+    Plus tard pour le complexe [Fact (DisplayName = "Quand on met pas assez d'argent et que l'on a une tasse")]
 
 
 
