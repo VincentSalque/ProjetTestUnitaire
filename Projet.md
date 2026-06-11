@@ -37,7 +37,7 @@ Portabilité :   Manul ou Non car c'est sur son propre environnement, c'est le c
 
 US1 - Fourniture de gobelet par défaut
 En tant qu'utilisateur ne possédant pas de tasse.
-Je veux que la machine me fournisse automatiquement un gobelet avant de faire couler le café.
+Je veux que la machine me fournisse automatiquement un gobelet avant de faire couler un café.
 
 US2 - Utilisation de ma propre tasse
 En tant qu'utilisateur possédant ma propre tasse.
@@ -52,6 +52,12 @@ En tant qu'utilisateur ne possedant pas de tasse.
 Je veux etre informé du stock des gobelets.
 
 US5 - Money Insuffisante et pas de tasse
+En tant que gérant de la machine 
+Je veux que le gobelet ne soit pas distribué si le montant n'est pas suffisant
+
+US6 - Pas de gobelet gratuit si tasse
+En tant que gérant de la machine 
+Je veux que le gobelet ne soit pas distribué si l'utilisateur a une tasse.
 
 ========================================================== GERKIN ==================================================
 Cas 1 : Tasse + Assez Argent
