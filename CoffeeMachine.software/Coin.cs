@@ -1,5 +1,7 @@
 using System.Collections.Frozen;
-using CoffeeMachine.core;
+using CoffeeMachine.hardware;
+
+namespace CoffeeMachine.software;
 
 public class Coin
 {

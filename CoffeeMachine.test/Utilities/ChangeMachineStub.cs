@@ -1,4 +1,4 @@
-using CoffeeMachine.core;
+using CoffeeMachine.hardware;
 
 public class ChangeMachineStub : IChangeMachine
 {

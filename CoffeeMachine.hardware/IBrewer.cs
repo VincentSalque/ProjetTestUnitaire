@@ -1,4 +1,4 @@
-﻿namespace CoffeeMachine.core;
+﻿namespace CoffeeMachine.hardware;
 
 public interface IBrewer
 {

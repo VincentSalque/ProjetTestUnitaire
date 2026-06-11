@@ -1,5 +1,5 @@
 using System.Runtime;
-using CoffeeMachine.core;
+using CoffeeMachine.hardware;
 
 public class BrewerSpy : IBrewer
 {

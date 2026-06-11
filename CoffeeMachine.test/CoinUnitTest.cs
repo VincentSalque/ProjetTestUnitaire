@@ -1,3 +1,5 @@
+using CoffeeMachine.software;
+
 namespace CoffeeMachine.test;
 
 public class CoinUnitTest

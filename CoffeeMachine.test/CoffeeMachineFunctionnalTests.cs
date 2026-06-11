@@ -1,5 +1,5 @@
-﻿using CoffeeMachine.core;
-using CoffeeMachine.test;
+﻿using CoffeeMachine.software;
+using CoffeeMachine.hardware;
 
 namespace CoffeeMachine.test;
 
@@ -13,7 +13,7 @@ public class CoffeeMachineFunctionnalTests
         var changeMachineSpy = new ChangeMachineSpy(changeMachine);
         var brewerSpy = new BrewerSpy(new BrewerStub());
 
-        var coffeeMachine = new core.CoffeeMachine(brewerSpy, changeMachineSpy);
+        var coffeeMachine = new software.CoffeeMachine(brewerSpy, changeMachineSpy);
 
         //WHEN notice is given that coins were inserted
         changeMachine.FakeInsertCoin(CoinCode.FiftyCents);
@@ -33,7 +33,7 @@ public class CoffeeMachineFunctionnalTests
         var changeMachineSpy = new ChangeMachineSpy(changeMachine);
         var brewerSpy = new BrewerSpy(new BrewerStub());
 
-        var coffeeMachine = new core.CoffeeMachine(brewerSpy, changeMachineSpy);
+        var coffeeMachine = new software.CoffeeMachine(brewerSpy, changeMachineSpy);
 
         //WHEN notice is given that coins were inserted
         changeMachine.FakeInsertCoin(CoinCode.TwentyCents);

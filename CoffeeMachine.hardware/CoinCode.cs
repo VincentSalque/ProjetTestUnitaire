@@ -1,4 +1,4 @@
-﻿namespace CoffeeMachine.core;
+﻿namespace CoffeeMachine.hardware;
 
 /// <summary>
 /// Représente les différentes pièces reconnues par la machine.
