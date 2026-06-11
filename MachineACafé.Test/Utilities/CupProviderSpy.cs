@@ -5,14 +5,14 @@ namespace MachineACafé.Test.Utilities;
 public class CupProviderSpy : ICupProvider
 {
     private bool _isCupPresent;
-    private int _provideCupCall;
-    private int _isCupPresentCall;
+    public ushort provideCupInvocations { get; private set; }
+    public ushort isCupPresentInvocations { get; private set; }
 
     public CupProviderSpy(bool tassePresente)
     {
         _isCupPresent = tassePresente;
-        _provideCupCall = 0;
-        _isCupPresentCall = 0;
+        provideCupInvocations = 0;
+        isCupPresentInvocations = 0;
     }
 
     public void ProvideStirrer()
@@ -22,14 +22,14 @@ public class CupProviderSpy : ICupProvider
 
     public bool IsCupPresent()
     {
-        _isCupPresentCall++;
+        isCupPresentInvocations++;
         return _isCupPresent;
     }
 
     public void ProvideCup()
     {
         _isCupPresent = true;
-        _provideCupCall++;
+        provideCupInvocations++;
     }
 
 

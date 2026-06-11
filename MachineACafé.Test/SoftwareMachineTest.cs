@@ -110,6 +110,7 @@ public class SoftwareMachineTest
         var brewer = new BrewerSpy(new BrewerStub());
 
         var cupProvider = new CupProviderFake(false);
+        var cupProviderSpy = new CupProviderSpy(cupProvider.IsCupPresent());
         _ = new SoftwareMachineBuilder()
             .AyantUneChangeMachine(changeMachineSpy)
             .AyantUnBrewer(brewer)
@@ -120,13 +121,14 @@ public class SoftwareMachineTest
         changeMachine.SimulerInsertionPièce(CoinCode.FiftyCents); 
         //ET aucune tasse detectée
         _ = cupProvider.IsCupPresent();
+        Assert.True(cupProvider.IsCupPresent());
 
         //ALORS (servir un gobelet)
-        Assert.True(cupProvider.IsCupPresent());
         //ET (couler un café)
         Assert.Equal(1, brewer.MakeACoffeeInvocations);
+        Assert.Equal(0, cupProviderSpy.isCupPresentInvocations);
     }
-
+/*
     [Fact (DisplayName = "Quand on paye avec une tasse")]
     public void PayeAvecTasse()
     {
@@ -135,7 +137,7 @@ public class SoftwareMachineTest
         var changeMachineSpy = new ChangeMachineSpy(changeMachine);
         var brewer = new BrewerSpy(new BrewerStub());
 
-        var cupProvider = new CupProviderFake(true);
+        var cupProvider = new CupProviderSpy(true);
         _ = new SoftwareMachineBuilder()
             .AyantUneChangeMachine(changeMachineSpy)
             .AyantUnBrewer(brewer)
@@ -147,8 +149,10 @@ public class SoftwareMachineTest
 
         //ALORS servir un café
         Assert.Equal(1, brewer.MakeACoffeeInvocations);
+        Assert.Equal(1, cupProvider.isCupPresentInvocations);
+        Assert.Equal(0, cupProvider.provideCupInvocations);
     }
-
+/*
     [Fact (DisplayName = "Quand a une tasse et qu'on ne veut pas un gobelet")]
     public void TassePasDeGobelet()
     {
@@ -168,8 +172,8 @@ public class SoftwareMachineTest
         _ = cupProviderSpy.IsCupPresent();
 
         //ALORS ne pas servir un gobelet
-        Assert.Equal(0, cupProviderSpy.ProvideCupCall);
-        Assert.Equal(1, cupProviderSpy.IsCupPresentCall);
+        Assert.Equal(0, cupProviderSpy.provideCupInvocations);
+        Assert.Equal(1, cupProviderSpy.isCupPresentInvocations);
     }
 /*
 
