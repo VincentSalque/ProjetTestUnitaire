@@ -6,9 +6,31 @@ Produit supplémentaire (Chocolat, Latté, Cappucino) + gobelets
  - Complexe : Produits en plus avec leurs stocks et leur prix
  
 Plan de Test :
- - 
+    - Tests Fonctionnels : 
+        - Exactitude : OUI - * - Test First (TDD) - Acceptance
+        - Complétude : MANUEL, pas beaucoup de cas, plus flexible de tester manuellement
+        - Aptitude à l'usage : NON, Pas d'Interface, pertinence très limitée
 
+    - Tests de Performance
+        - Temps de réponse : OUI - 
+        - Ressources : NON,  
+        - Capacité : 
+    
+    - Tests de Compatibilité : Manuel, Environement dédié, faible nombre de programmes, vérification manuelle
 
+    - Test d'utilisabilité : Manuel
+
+    - Test de Fiabilité : 
+        - Maturité : NON
+        - Disponibilité : OUI
+        - Robustesse : 
+        - Récupérabilité : 
+    
+    - Test de Sécurité : NON, faible criticalité, environnement isolé.
+
+    - Test de Maintenabilité : Manuel, petit projet tournant en vase-clos, audit manuel si besoin.
+
+    - Test de Portabilité : Manuel, une seule machine envisagée, port manuel si besoin.
 
 
 Questions :
