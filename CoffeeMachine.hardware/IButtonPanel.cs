@@ -16,3 +16,4 @@ public interface IButtonPanel
     /// <param name="state">Le nouvel état de la LED.</param>
     void SetLungoWarningState(bool state);
 }
+

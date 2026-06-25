@@ -1,3 +1,6 @@
+Contact : enzo@enzosandre.fr
+Dates : 12/06 Rendu Blanc - 26/06 Rendu Final
+
 Problématique :
 Ajouter la fonctionnalité suivante
  
@@ -114,4 +117,27 @@ CAS AMBIGUES:
     ET on insére des pièces d'une valeur supérieure à égal au prix de @produit
     ALORS ???       //Réponse : On annule la commande et on rend les pièces (On agit comme si les pièces étaient dans le réceptacle au moment de la commande, pour ne pas avoir à gérer un timer)
 
+    ETANT DONNE Une machine à café
+    QUAND on sélectionne un produit
+    ET qu'on sélectionne un autre produit
+    ALORS ???       //Réponse : le second produit est sélectionné
 
+    //Vérification de la désélection du produit
+    ETANT DONNE Une machine a café
+    QUAND On sélectionne un produit
+    ET qu'on re-sélectionne le même produit
+    ALORS ???       //Réponse : Le produit est déselectionné
+
+    //Vérification de la déselection du produit
+    ETANT DONNE Une machine à café
+    QUAND On sélectionne un produit
+    ET Qu'on en sélectionne un autre
+    ET qu'on re-sélectionne cet autre produit
+    ALORS ???       //Réponse : On revient à l'état initial, pas de mémoire du premier produit
+
+    //Vérification que la déslection revient à un état standard
+    ETANT DONNE Une machine à café
+    QUAND On sélectionne un produit
+    ET qu'on resélectionne le même produit
+    Et qu'on sélectionne ENCORE le même produit
+    ALORS ???       //Réponse : Le produit est à nouveau sélectionné
